@@ -1,0 +1,5 @@
+github.com/awootton/knotfreeiot v0.0.0-20200306225827-17115dfc6f70 h1:aDt7IqSSAVm0Gzq1EknqNcIF6TsnOjB61tTeJK9zJoU=
+github.com/awootton/knotfreeiot/kubectl v0.0.0-20200306225827-17115dfc6f70 h1:tFRG2s02g6yXZ5FR67mw5rvPGE6eHBk6cb1dNaRMB2k=
+github.com/awootton/knotfreeiot/kubectl v0.0.0-20200306225827-17115dfc6f70/go.mod h1:6hW+h1WR57S9l5JxReU63WyszcDl+QKYdmLHCPXs1AY=
+github.com/sqs/goreturns v0.0.0-20181028201513-538ac6014518 h1:iD+PFTQwKEmbwSdwfvP5ld2WEI/g7qbdhmHJ2ASfYGs=
+github.com/sqs/goreturns v0.0.0-20181028201513-538ac6014518/go.mod h1:CKI4AZ4XmGV240rTHfO0hfE83S6/a3/Q1siZJ/vXf7A=

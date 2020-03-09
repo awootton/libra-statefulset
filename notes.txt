@@ -1,0 +1,31 @@
+
+kubectl port-forward libra-0 8000:8000 
+ 
+// in  /Users/awootton/Documents/workspace/libra
+cargo run --bin cli -- -a localhost -p 8000 -m "/Users/awootton/Documents/workspace/libra-statefulset/tmp/mint.key"
+
+ 
+/Users/awootton/Documents/workspace/libra-statefulset/tmp/mint.key
+
+
+query tr 0 1 false
+
+
+>> Getting committed transaction by range
+I0309 01:52:00.729504 4621057472 client/cli/src/grpc_client.rs:135] Trusted epoch change to :EpochInfo [epoch: 1, validator: ValidatorSet: [3203fb16: 1, 78633fc6: 1, f3616cc0: 1, fd6ab820: 1, ]]
+Transaction at version 0: SignedTransaction { 
+ raw_txn: RawTransaction { 
+	sender: 000000000000000000000000000000000000000000000000000000000a550c18, 
+	sequence_number: 0, 
+	payload: {, 
+		transaction: genesis, 
+		args: [  
+		]
+	}, 
+	max_gas_amount: 0, 
+	gas_unit_price: 0, 
+	expiration_time: 18446744073709551615s, 
+}, 
+ public_key: Ed25519PublicKey(78153472e480e0222ce49ac048e9c915bcfb4e469cb3888d69da30f653a911b9), 
+ signature: Ed25519Signature(6aa2db9432c3bcc23c0ab088ee7017cbd1b715798124b6e57e8798da5c8889d3ddab2e3a2a7f46e73ba53a5fd835595aa73431bff65d43d569fb108a14845f05), 
+ }

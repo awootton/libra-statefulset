@@ -1,0 +1,91 @@
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: libra
+spec:
+  selector:
+    matchLabels:
+      app: libra # has to match .spec.template.metadata.labels
+  serviceName: "libra"
+  replicas: 3 
+  template:
+    metadata:
+      labels:
+        app: libra # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: libra
+        image: MY_DOCKER_REPO_HERE/libra_e2e
+        command: ["/bin/sh"]
+        args: ["-c", "cp -R /mappedconfig/etc /opt/libra/;chmod +x /opt/libra/etc/startup.sh;cd /opt/libra/etc/;./startup.sh"]
+        #command: ["/bin/sh"]
+        #args: ["-c", "while true; do sleep 10000; done"]
+        ports:
+        - containerPort: 8080
+          name: web
+        - containerPort: 8000
+          name: admission
+        - containerPort: 5000
+          name: rpc
+        - containerPort: 6191
+          name: admissiondebug
+        - containerPort: 6180
+          name: validrnetwk
+        - containerPort: 9101
+          name: metrics
+        - containerPort: 9102
+          name: publicmetrics
+        volumeMounts:
+        - name: libradata
+          mountPath: "/opt/libra/data"
+        - name: mappedconfig
+          mountPath: "/mappedconfig/etc"
+        env:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      volumes:
+      - name: mappedconfig
+        configMap:
+          name: libra-config-map
+
+  volumeClaimTemplates:
+  - metadata:
+      name: libradata
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      volumeMode: Filesystem
+      storageClassName: "libra-storage-class"
+      resources:
+        requests:
+          storage: 1Gi
+
+---
+ 
+apiVersion: v1
+kind: Service
+metadata:
+  name: libra
+  labels:
+    app: libra
+spec:
+  ports:
+  - name: admission
+    port: 8000
+    protocol: TCP 
+  - name: web
+    port: 8080
+    protocol: TCP 
+    
+  selector:
+    app: libra
+
+  
+
